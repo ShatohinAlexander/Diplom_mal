@@ -1,6 +1,9 @@
 from django.contrib import admin
-
+from django.contrib.auth.models import Group, User
 from main.models import Category, Order, Pet, Staff
+
+admin.site.unregister(Group)
+admin.site.unregister(User)
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -31,4 +34,5 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone', 'animal', 'order_date')
     search_fields = ('name', 'phone')
     list_display_links = ('name', 'phone')
+    ordering = ('order_date',)
     
