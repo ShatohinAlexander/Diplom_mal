@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Питомцы по категориям - Second_Life</title>
+{% endblock title %}
+
+{% block content %}
+<main class="col col-8 m-auto fs-3 my-5">
+    <section class="my-5">
+        <h2 class="text-center">Наши питомцы: {{ category_name }}</h2>
+        <hr>
+        
+        <div class="row">
+            <div class="col">
+                <p class="text-center mb-4">
+                    Здесь вы можете познакомиться со всеми нашими {{ category_name|lower }}, 
+                    которые ищут любящий дом. Каждый из них уникален и заслуживает заботы и внимания.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Фильтр по категориям -->
+        <div class="row mb-5 justify-content-center">
+            <div class="col-md-10">
+                <div class="d-flex justify-content-between flex-wrap gap-2">
+                    <a href="{% url "pets_list" %}?category=" class="btn {% if not request.GET.category %}btn-primary{% else %}btn-outline-primary{% endif %} mb-2 fs-4">
+                        Все животные
+                    </a>
+                    {% for cat in category %}
+                        <a href="{% url "pets_list" %}?category={{ cat.slug }}" class="btn {% if request.GET.category == cat.slug %}btn-primary{% else %}btn-outline-primary{% endif %} mb-2 fs-4">
+                            {{ cat.name }}
+                        </a>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for pet in pets %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        {% if not pet.image %}
+                            <img src={% static 'img/i.webp' %} class="card-img-top" alt="Нет картинки" style="height: 250px; object-fit: cover;">
+                        {% else %}
+                            <img src="{{ pet.image.url }}" class="card-img-top" alt="{{ pet.name }}" style="height: 250px; object-fit: cover;">
+                        {% endif %}
+                        
+                        <div class="card-body">
+                            <h3 class="card-title">{{ pet.name }}</h3>
+                            <p class="card-text"><strong>Возраст:</strong> {{ pet.age }} {% if pet.age == 1 %}год{% elif pet.age > 1 and pet.age < 5 %}года{% else %}лет{% endif %}</p>
+                            <p class="card-text"><strong>Порода:</strong> {{ pet.breed }}</p>
+                            <p class="card-text">{{ pet.description|truncatewords:20 }}</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="{% url 'order' %}?pet={{ pet.id }}" class="btn btn-primary w-100">Оставить заявку</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center my-5">
+                    <h3>В данной категории пока нет животных</h3>
+                    <p>Пожалуйста, загляните позже или выберите другую категорию</p>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Пагинация -->
+        {% if pets.has_other_pages %}
+        <div class="row mt-5">
+            <div class="col">
+                <nav aria-label="Навигация по страницам">
+                    <ul class="pagination justify-content-center">
+                        {% if pets.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ pets.previous_page_number }}" aria-label="Предыдущая">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link" aria-hidden="true">&laquo;</span>
+                        </li>
+                        {% endif %}
+                        
+                        {% for i in pets.paginator.page_range %}
+                        <li class="page-item {% if pets.number == i %}active{% endif %}">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                        {% endfor %}
+                        
+                        {% if pets.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ pets.next_page_number }}" aria-label="Следующая">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link" aria-hidden="true">&raquo;</span>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        {% endif %}
+        
+        <img src="{% static 'img/popugai.png' %}" alt="" class="popugai">
+    </section>
+</main>
+{% endblock content %}

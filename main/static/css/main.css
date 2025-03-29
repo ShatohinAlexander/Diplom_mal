@@ -1,0 +1,250 @@
+* {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Yanone Kaffeesatz", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    box-sizing: border-box;
+    /* color: white!important; */
+}
+
+:root {
+    --bg: #a4bebb;
+    --lp: #fec2a0;
+    --dp: #e5b095;
+    --lg: #425b58;
+    --dg: #324441;
+    --w: #ffffff;
+    --g: #d9d9d9;
+
+}
+
+a{
+    color: white!important;
+    text-decoration: none!important;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+
+body {
+    background-color: var(--bg);
+    color: white;
+}
+
+.logo {
+    max-width: 100%;
+    height: 30vw;
+    width: auto; /* Убираем принудительную ширину 100% */
+}
+
+.n_link {
+    position: relative;
+    width: fit-content;
+    cursor: pointer;
+
+}
+
+.n_link::after {
+    position: absolute;
+    content: "";
+    height: 2px;
+    background-color: var(--w);
+    width: 0%;
+    left: 0;
+    bottom: -3px;
+    transition: width 0.7s ease-in-out;
+}
+
+.n_link:hover::after {
+    width: 100%;
+}
+
+
+.ban_1 {
+    animation: cacheli 20s ease-in-out infinite 1s;
+    animation: from_right 1s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.abs_1 {
+    position: absolute;
+    width: 20rem;
+    opacity: .5;
+    z-index: -1;
+    bottom: 50%;
+    left: 0%;
+    animation-name: fade_in;
+    animation-timing-function: linear;
+    animation-timeline: scroll();
+}
+
+
+.pers_info_left {
+    animation-name: from_right;
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+    view-timeline-name: --fade-in-imgage;
+    animation-timeline: --fade-in-imgage;
+    animation-range: 0% 50%;
+}
+
+.pers_info_right {
+    animation-name: from_left;
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+    view-timeline-name: --fade-in-imgage;
+    animation-timeline: --fade-in-imgage;
+    animation-range: 0% 50%;
+}
+
+.img_cat {
+    box-sizing: border-box;
+    border: 20px solid var(--lg);
+    animation-name: from_bottom;
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+    view-timeline-name: --fade-in-imgage;
+    animation-timeline: --fade-in-imgage;
+    animation-range: 0% 40%;
+    transition: all 0.5s ease-in-out;
+}
+
+.link_cat {
+    transition: all 0.5s ease-in-out;
+}
+
+.link_cat:hover {
+    border-radius: 2vw;
+    background-color: var(--lg);
+
+}
+
+.link_cat:hover .img_cat {
+    /* border: 0px; */
+    translate: 0px -25px;
+    scale: 1.2;
+    border: 0px solid var(--dg);
+}
+
+.link_cat:hover p {
+    text-decoration: underline;
+}
+
+.popugai {
+    display: none;
+    position: absolute;
+    max-width: 50vw;
+    top: -15vw;
+    left: -150%;
+    z-index: -1;
+
+    animation-name: popugai;
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+    view-timeline-name: --fade-in-imgage-popugai;
+    animation-timeline: --fade-in-imgage-popugai;
+    animation-range: scroll();
+}
+
+.nav-btn:hover {
+    color: rgb(255, 255, 255);
+}
+
+.footer-logo {
+    width: 2rem;
+    height: auto;
+}
+
+.personal {
+    border-radius: 50%;
+    box-shadow: 1em 0px 1em 0px #0000001a;
+}
+
+@keyframes cacheli {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(10deg);
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+
+    75% {
+        transform: rotate(-10deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+
+}
+
+@keyframes fade_in {
+    from {
+        opacity: 0;
+        left: 0%;
+        bottom: 50%;
+    }
+
+    to {
+        opacity: .5;
+        left: 0%;
+        bottom: 0%;
+    }
+}
+
+@keyframes from_right {
+    from {
+        translate: -25vw;
+        opacity: 0;
+        transform: rotateZ(-50deg);
+    }
+
+    to {
+        translate: 0vw;
+        opacity: 1;
+        transform: rotateZ(0deg);
+    }
+}
+
+@keyframes from_left {
+    from {
+        translate: 25vw;
+        opacity: 0;
+        transform: rotateZ(50deg);
+    }
+
+    to {
+        translate: 0vw;
+        opacity: 1;
+        transform: rotateZ(0deg);
+    }
+}
+
+@keyframes from_bottom {
+    from {
+        opacity: 0;
+        transform: rotateZ(50deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: rotateZ(0deg);
+    }
+}
+
+/* @keyframes popugai {
+    to {
+        transform: rotateZ(0deg);
+        top: 90%;
+        left: 90%;
+    }
+} */

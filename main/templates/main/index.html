@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title%}
+<title>Second_Life</title>
+{% endblock title %}
+
+{% block content %}
+<main class="col col-8 m-auto fs-3 my-5">
+    <section class="my-5">
+        <div class="row position-relative">
+            <div class="col">
+                <h2 class="text-center">Добро пожаловать в наш приют домашних животных "Вторая жизнь"</h2>
+                    <hr>
+
+                    Мы — это место, где каждая жизнь имеет значение. В нашем приюте вы найдете дружелюбных и
+                    заботливых
+                    животных, от
+                    милых хомяков до больших собак, которые мечтают о любящих домах. Мы гордимся тем, что
+                    предоставляем
+                    нашим
+                    пушистым друзьям безопасное укрытие, любовь и внимание, которые они заслуживают.
+                    <br>
+                    Все наши животные проходят полную вакцинацию и получают необходимый уход, чтобы быть здоровыми и
+                    счастливыми. Мы
+                    создаем для них комфортную атмосферу, где они могут играть, развлекаться и готовиться к встрече
+                    с
+                    новыми
+                    хозяевами.
+                    <br>
+                    Присоединяйтесь к нашей миссии! Каждый из нас может стать героем для бездомного животного.
+                    Заберите
+                    одного
+                    из
+                    наших пушистых друзей в свой дом и подарите ему любовь и заботу, которые он так ждет. Вместе мы
+                    можем
+                    сделать
+                    мир лучше и подарить счастье тем, кто в этом так нуждается!
+            </div>
+            <div class="col-4 d-none d-md-block">
+                <img src="static/img/1_ban.png" alt="" class="ban_1">
+            </div>
+
+            <img src="static/img/abs_1.png" alt="" class="abs_1">
+
+        </div>
+
+        <img src="static/img/popugai.png" alt="" class="popugai">
+
+    </section>
+
+
+
+
+    <section class="my-5 px-3"> 
+        <h2 class="text-center">Наш заботливый персонал</h2>
+        <hr>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 justify-content-center g-3">
+            {% for pers in staff %}
+            <div class="col pers_info_left ">
+                <div class="card h-100 shadow-sm position-relative">
+                    {% if not pers.image %}
+                        <img src={% static 'img/i.webp' %} class="card-img-top" alt="Нет картинки">
+                    {% else %}
+                        <img src={{ pers.image.url }} class="card-img-top" alt="Фото сотрудника">
+                    {% endif %}
+                    <div class="card-body text-center d-flex flex-column align-items-center justify-content-center">
+                        <h3 class="card-title">{{ pers.name }} {{ pers.last_name }}</h3>
+                        <p class="card-text fs-5 text-secondary m-0">{{ pers.profession }}</p>
+                        <p class="card-text fs-5 text-secondary m-0">Возраст: {{ pers.age }}</p>
+                        <p class="card-text fs-5 text-secondary m-0">{{ pers.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+
+
+
+    <section class="my-5">
+        <h2 class="text-center mb-4">Категории животных</h2>
+        <hr>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 justify-content-center mt-3">
+
+            {% for cat in category %}
+            
+                <a href="{% url "pets_list" %}?category={{ cat.slug }}" class="col text-decoration-none text-light link_cat">
+                    <div class="border-0 text-center">
+                        <div class="mx-auto mb-3" style="width: 200px; height: 200px;">
+                            <img src={{ cat.image.url }} alt="{{cat.name}}"
+                                class="rounded-circle w-100 h-100 object-fit-cover shadow img_cat">
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">{{cat.name}}</h4>
+                        </div>
+                    </div>
+                </a>
+            
+            {% endfor %}
+
+        </div>
+    </section>
+
+</main>
+
+{% endblock content %}
+

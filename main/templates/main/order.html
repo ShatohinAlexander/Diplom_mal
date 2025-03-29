@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Оформление заявки - Second_Life</title>
+{% endblock title %}
+
+{% block content %}
+<main class="col col-8 m-auto fs-3 my-5">
+    <section class="my-5">
+        <h2 class="text-center">Оформление заявки на питомца</h2>
+        <hr>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm p-4">
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.animal.id_for_label }}" class="form-label">{{ form.animal.label }}</label>
+                            {{ form.animal }}
+                            {% if form.animal.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.animal.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.name.id_for_label }}" class="form-label">{{ form.name.label }}</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.name.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.phone.id_for_label }}" class="form-label">{{ form.phone.label }}</label>
+                            <div class="input-group">
+                                {{ form.phone }}
+                            </div>
+                            {% if form.phone.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.phone.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg px-5">Отправить заявку</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <p class="text-muted">После отправки заявки наш сотрудник свяжется с вами для уточнения деталей</p>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+</main>
+
+
+<script src="{% static 'js/form_valid.js' %}"></script>
+
+{% endblock content %}
